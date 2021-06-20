@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import TaskSerializer, MovieSerializer
-from .models import Task, Movie
+from .serializers import MovieSerializer, ReviewSerializer
+from .models import Movie
 from .movieData import getMovieData
 # Create your views here.
 
@@ -18,46 +18,10 @@ def apiOverview(request):
     }
     return Response(api_urls)
 
-@api_view(['GET'])
-def taskList(request):
-    tasks = Task.objects.all()
-    serializer = TaskSerializer(tasks, many=True)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def taskDetail(request, pk):
-    tasks = Task.objects.get(id=pk)
-    serializer = TaskSerializer(tasks, many=False)
-    return Response(serializer.data)
-
-@api_view(['POST'])
-def taskCreate(request):
-    serializer = TaskSerializer(data=request.data)
-    print(request.data)
-    if serializer.is_valid():
-        request.data.get()
-        serializer.save()
-    return Response(serializer.data)
-
-@api_view(['POST'])
-def taskUpdate(request, pk):
-    task = Task.objects.get(id=pk)
-    serializer = TaskSerializer(instance=task, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
-
-@api_view(['DELETE'])
-def taskDelete(request, pk):
-    task = Task.objects.get(id=pk)
-    task.delete()
-    return Response("Item Deleted")
-
 @api_view(['POST'])
 def movieCreate(request):
     movie = request.data['movie']
     movieData = getMovieData(movie)
-    print("moviedata views: "+movieData['runtime'])
     serializer = MovieSerializer(data=movieData)
     if serializer.is_valid():
         serializer.save()
@@ -70,11 +34,11 @@ def movieList(request):
     serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data)
 
-@api_view(['GET'])
-def movieDetail(request, pk):
-    movies = Movie.objects.get(id=pk)
-    serializer = MovieSerializer(movies, many=False)
-    return Response(serializer.data)
+# @api_view(['GET'])
+# def movieDetail(request, pk):
+#     movies = Movie.objects.get(id=pk)
+#     serializer = MovieSerializer(movies, many=False)
+#     return Response(serializer.data)
 
 @api_view(['POST'])
 def movieUpdate(request, pk):
@@ -90,3 +54,18 @@ def movieDelete(request, pk):
     movie = Movie.objects.get(id=pk)
     movie.delete()
     return Response("Movie Deleted")
+
+@api_view(['POST'])
+def reviewCreate(request):
+    #movie = Movie.objects.get(id=pk)
+    serializer = ReviewSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def reviewList(request, pk):
+    movie = Movie.objects.get(id=pk)
+    reviews = movie.reviews.all()
+    serializer=ReviewSerializer(reviews, many=True)
+    return Response(serializer.data)

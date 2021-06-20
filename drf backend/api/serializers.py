@@ -1,13 +1,14 @@
 from rest_framework import serializers
-from .models import Task, Movie
+from .models import Movie, Review
 
-class TaskSerializer(serializers.ModelSerializer):
+
+class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
-        model=Task
+        model=Review
         fields='__all__'
-
 
 class MovieSerializer(serializers.ModelSerializer):
+    #reviews=ReviewSerializer(many=True)
     class Meta:
         model=Movie
-        fields='__all__'
+        fields='__all__'#['id', 'title','year', 'runtime','director','poster']
