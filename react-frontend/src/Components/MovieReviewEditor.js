@@ -1,4 +1,4 @@
-const MovieSearchBar = ({ searchMovie, setSearchMovie, checkMovieList }) => {
+const MovieReviewEditor = ({ review, setReview, submitReview }) => {
   return (
     <>
       <div className="movie-container">
@@ -8,22 +8,22 @@ const MovieSearchBar = ({ searchMovie, setSearchMovie, checkMovieList }) => {
               <div style={{ flex: 6 }}>
                 <input
                   className="form-control"
-                  id="movie search"
+                  id="review editor"
                   type="text"
-                  placeholder="find a movie..."
-                  onChange={(e) => setSearchMovie(e.target.value)}
-                  value={searchMovie}
+                  placeholder="Write a review for this film..."
+                  onChange={(e) => setReview(e.target.value)}
+                  value={review}
                 ></input>
               </div>
               <div style={{ flex: 1 }}>
                 <input
                   type="submit"
-                  value="Search"
+                  value="Submit"
                   className="btn btn-warning submit"
                   onClick={(e) => {
                     e.preventDefault();
-                    checkMovieList();
-                    //setSearchMovie("");
+                    setReview("");
+                    submitReview();
                   }}
                 />
               </div>
@@ -35,4 +35,4 @@ const MovieSearchBar = ({ searchMovie, setSearchMovie, checkMovieList }) => {
   );
 };
 
-export default MovieSearchBar;
+export default MovieReviewEditor;

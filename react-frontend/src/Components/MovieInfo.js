@@ -5,7 +5,9 @@ const MovieInfo = ({ currentMovie }) => {
         <img src={currentMovie?.poster}></img>
       </div>
       <div className="movie-wrapper flex-wrapper" style={{ flex: 7 }}>
-        <span>{currentMovie?.title}</span>
+        <span>
+          {currentMovie?.title} was released in {currentMovie?.year}
+        </span>
       </div>
       <div className="movie-wrapper flex-wrapper" style={{ flex: 7 }}>
         <span>{currentMovie?.year}</span>

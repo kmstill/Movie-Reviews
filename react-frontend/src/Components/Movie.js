@@ -2,61 +2,62 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./Movie.css";
 import MovieSearchBar from "./MovieSearchBar";
 import MovieInfo from "./MovieInfo";
+import MovieReviewEditor from "./MovieReviewEditor";
+import MovieReviews from "./MovieReviews";
 
 const Movie = () => {
   const [currentMovie, setCurrentMovie] = useState({
-    id: 1,
-    title: "Goodfellas",
-    year: "1990",
-    runtime: "146 mins",
-    director: "Martin Scorsese",
-    poster:
-      "https://m.media-amazon.com/images/M/MV5BY2NkZjEzMDgtN2RjYy00YzM1LWI4ZmQtMjIwYjFjNmI3ZGEwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
+    id: 0,
+    title: "",
+    year: "",
+    runtime: "",
+    director: "",
+    poster: "",
   });
   const [searchMovie, setSearchMovie] = useState("");
   const [needToCreateNewMovie, setNeedToCreateNewMovie] = useState(false);
-
-  const handleSubmit = () => {
-    checkMovieList();
-  };
+  const [review, setReview] = useState("");
+  const [reviewList, setReviewList] = useState([]);
 
   useEffect(() => {
     createNewMovie();
   }, [needToCreateNewMovie]);
 
-  const checkMovieList = () => {
-    console.log("checkMovieList");
-    fetch("http://127.0.0.1:8000/api/movie-list/")
+  useEffect(() => {
+    updateReviews();
+  }, [currentMovie]);
+
+  const updateReviews = () => {
+    fetch("http://127.0.0.1:8000/api/review-list/" + currentMovie.id)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        let foundMovie = false;
+        let newReviewList = [];
         Object.keys(data).forEach((key) => {
-          if (data[key]?.title?.toLowerCase() === searchMovie?.toLowerCase()) {
-            console.log("found a match");
-            setCurrentMovie(data[key]);
-            foundMovie = true;
-            // setNeedToCreateNewMovie(false);
-          }
+          newReviewList.push(data[key]?.text);
         });
-        //replace this with setNeedToCreateNewMovie(!foundMovie);
-        if (foundMovie) {
-          setNeedToCreateNewMovie(false);
-          console.log("setNeedToCreateNewMovie(false);");
-        } else {
-          setNeedToCreateNewMovie(true);
-          console.log("setNeedToCreateNewMovie(true);");
-        }
+        setReviewList(newReviewList);
       });
   };
 
-  //should only be called after iterating though movie list and determining
-  //searchMovie is not in movie list
+  const checkMovieList = () => {
+    fetch("http://127.0.0.1:8000/api/movie-list/")
+      .then((response) => response.json())
+      .then((data) => {
+        let foundMovie = false;
+        Object.keys(data).forEach((key) => {
+          if (data[key]?.title?.toLowerCase() === searchMovie?.toLowerCase()) {
+            setCurrentMovie(data[key]);
+            foundMovie = true;
+          }
+        });
+        setNeedToCreateNewMovie(!foundMovie);
+      });
+  };
+
   const createNewMovie = () => {
     if (!needToCreateNewMovie) {
       return;
     }
-    console.log("needToCreateNewMovie");
     fetch("http://127.0.0.1:8000/api/movie-create/", {
       method: "POST",
       headers: {
@@ -72,14 +73,33 @@ const Movie = () => {
       });
   };
 
+  const submitReview = () => {
+    fetch("http://127.0.0.1:8000/api/review-create/", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        text: review,
+        movie: currentMovie.id,
+      }),
+    }).then(updateReviews());
+  };
+
   return (
     <div>
       <MovieSearchBar
         searchMovie={searchMovie}
         setSearchMovie={setSearchMovie}
-        handleSubmit={handleSubmit}
+        checkMovieList={checkMovieList}
       />
       <MovieInfo currentMovie={currentMovie} />
+      <MovieReviewEditor
+        review={review}
+        setReview={setReview}
+        submitReview={submitReview}
+      />
+      <MovieReviews reviewList={reviewList}>hi</MovieReviews>
     </div>
   );
 };
