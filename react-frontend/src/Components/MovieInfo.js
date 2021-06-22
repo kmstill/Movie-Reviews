@@ -1,22 +1,26 @@
+import "./Movie.css";
 const MovieInfo = ({ currentMovie }) => {
   return (
-    <div className="movie-container list-wrapper">
-      <div className="movie-wrapper flex-wrapper" style={{ flex: 7 }}>
+    <div className="movie-container">
+      <div className="together movie-wrapper flex-wrapper" style={{ flex: 7 }}>
         <img src={currentMovie?.poster}></img>
       </div>
-      <div className="movie-wrapper flex-wrapper" style={{ flex: 7 }}>
-        <span>
-          {currentMovie?.title} was released in {currentMovie?.year}
-        </span>
-      </div>
-      <div className="movie-wrapper flex-wrapper" style={{ flex: 7 }}>
-        <span>{currentMovie?.year}</span>
-      </div>
-      <div className="movie-wrapper flex-wrapper" style={{ flex: 7 }}>
-        <span>{currentMovie?.director}</span>
-      </div>
-      <div className="movie-wrapper flex-wrapper" style={{ flex: 7 }}>
-        <span>{currentMovie?.runtime}</span>
+      <div className="together">
+        <div className="movie-wrapper flex-wrapper" style={{ flex: 7 }}>
+          <span>Title: {currentMovie?.title}</span>
+        </div>
+        <div className="movie-wrapper flex-wrapper" style={{ flex: 7 }}>
+          <span>Released: {currentMovie?.year}</span>
+        </div>
+        <div className="movie-wrapper flex-wrapper" style={{ flex: 7 }}>
+          <span>Directed by: {currentMovie?.director}</span>
+        </div>
+        <div className="movie-wrapper flex-wrapper" style={{ flex: 7 }}>
+          <span>Runtime: {currentMovie?.runtime}</span>
+        </div>
+        <div className="movie-wrapper flex-wrapper" style={{ flex: 7 }}>
+          <span>Plot: {currentMovie.plot}</span>
+        </div>
       </div>
     </div>
   );

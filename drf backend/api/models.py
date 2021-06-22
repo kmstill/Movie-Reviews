@@ -8,6 +8,7 @@ class Movie(models.Model):
     runtime = models.CharField(max_length=20, null=True)
     director = models.CharField(max_length=50)
     poster = models.CharField(max_length=1000)
+    #plot = models.CharField(max_length=1000)
 
 class Review(models.Model):
     text=models.TextField()

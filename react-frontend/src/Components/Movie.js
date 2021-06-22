@@ -13,6 +13,7 @@ const Movie = () => {
     runtime: "",
     director: "",
     poster: "",
+    plot: "",
   });
   const [searchMovie, setSearchMovie] = useState("");
   const [needToCreateNewMovie, setNeedToCreateNewMovie] = useState(false);

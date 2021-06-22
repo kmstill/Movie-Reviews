@@ -11,9 +11,9 @@ def getMovieData(title):
             'year': response['Year'],
             'runtime': str(response['Runtime']),
             'director': response['Director'],
-            'poster' : response['Poster']
+            'poster' : response['Poster'],
+            'plot': response['Plot']
     }
-        print("moviedata: "+movieData['runtime'])
     else:
         movieData = {}
     return movieData
