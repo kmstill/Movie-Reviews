@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import "./Movie.css";
 import MovieSearchBar from "./MovieSearchBar";
 import MovieInfo from "./MovieInfo";
 import MovieReviewEditor from "./MovieReviewEditor";
 import MovieReviews from "./MovieReviews";
 
-const Movie = () => {
+const Main = () => {
   const [currentMovie, setCurrentMovie] = useState({
     id: 0,
     title: "",
@@ -100,8 +100,8 @@ const Movie = () => {
         setReview={setReview}
         submitReview={submitReview}
       />
-      <MovieReviews reviewList={reviewList}>hi</MovieReviews>
+      <MovieReviews reviewList={reviewList} />
     </div>
   );
 };
-export default Movie;
+export default Main;
