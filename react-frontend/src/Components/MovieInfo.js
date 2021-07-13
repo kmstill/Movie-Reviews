@@ -1,7 +1,6 @@
-import "./Movie.css";
 const MovieInfo = ({ currentMovie }) => {
   return (
-    <div className="movie-container">
+    <div className="component-container">
       <div className="together movie-wrapper flex-wrapper" style={{ flex: 7 }}>
         <img src={currentMovie?.poster}></img>
       </div>

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "./Movie.css";
+import "./Styles.css";
 import MovieSearchBar from "./MovieSearchBar";
 import MovieInfo from "./MovieInfo";
 import MovieReviewEditor from "./MovieReviewEditor";
 import MovieReviews from "./MovieReviews";
 
 const Main = () => {
-  const [currentMovie, setCurrentMovie] = useState({
+  const [displayedMovie, setDisplayedMovie] = useState({
     id: 0,
     title: "",
     year: "",
@@ -26,10 +26,10 @@ const Main = () => {
 
   useEffect(() => {
     updateReviews();
-  }, [currentMovie]);
+  }, [displayedMovie]);
 
   const updateReviews = () => {
-    fetch("http://127.0.0.1:8000/api/review-list/" + currentMovie.id)
+    fetch(`http://127.0.0.1:8000/api/review-list/${displayedMovie.id}`)
       .then((response) => response.json())
       .then((data) => {
         let newReviewList = [];
@@ -47,11 +47,12 @@ const Main = () => {
         let foundMovie = false;
         Object.keys(data).forEach((key) => {
           if (data[key]?.title?.toLowerCase() === searchMovie?.toLowerCase()) {
-            setCurrentMovie(data[key]);
+            setDisplayedMovie(data[key]);
             foundMovie = true;
           }
         });
         setNeedToCreateNewMovie(!foundMovie);
+        setSearchMovie("");
       });
   };
 
@@ -70,7 +71,7 @@ const Main = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setCurrentMovie(data);
+        setDisplayedMovie(data);
       });
   };
 
@@ -82,9 +83,12 @@ const Main = () => {
       },
       body: JSON.stringify({
         text: review,
-        movie: currentMovie.id,
+        movie: displayedMovie.id,
       }),
-    }).then(updateReviews());
+    }).then(() => {
+      updateReviews();
+      setReview("");
+    });
   };
 
   return (
@@ -94,7 +98,7 @@ const Main = () => {
         setSearchMovie={setSearchMovie}
         checkMovieList={checkMovieList}
       />
-      <MovieInfo currentMovie={currentMovie} />
+      <MovieInfo currentMovie={displayedMovie} />
       <MovieReviewEditor
         review={review}
         setReview={setReview}
