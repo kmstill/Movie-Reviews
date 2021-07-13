@@ -12,7 +12,7 @@ def getMovieData(title):
             'runtime': str(response['Runtime']),
             'director': response['Director'],
             'poster' : response['Poster'],
-            'plot': response['Plot']
+            #'plot': response['Plot']
     }
     else:
         movieData = {}
