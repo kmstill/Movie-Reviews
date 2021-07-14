@@ -22,6 +22,7 @@ body {
 .btn-color {
   color: #fff;
   background-color: #36d9b6;
+  margin-left: 10px;
 }
 
 .movie-info-wrapper {
@@ -39,7 +40,7 @@ body {
   display: flex;
   border-bottom: 1px solid #e9e9e9;
   margin: 5px;
-  padding: 20px;
+  padding: 10px;
 }
 
 .together {
