@@ -14,13 +14,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='movie',
             name='plot',
-            field=models.TextField(default='cool story', max_length=10000),
+            field=models.TextField(default=140, max_length=10000),
             preserve_default=False,
         ),
         migrations.AlterField(
             model_name='review',
             name='movie',
-            field=models.ForeignKey(default='cool story', on_delete=django.db.models.deletion.CASCADE, related_name='reviews', to='api.movie'),
+            field=models.ForeignKey(default=140, on_delete=django.db.models.deletion.CASCADE, related_name='reviews', to='api.movie'),
             preserve_default=False,
         ),
     ]
