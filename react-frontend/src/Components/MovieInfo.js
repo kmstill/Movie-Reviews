@@ -18,7 +18,7 @@ const MovieInfo = ({ currentMovie }) => {
           <span>Runtime: {currentMovie?.runtime}</span>
         </div>
         <div className="movie-info-wrapper">
-          <span>Plot: {currentMovie.plot}</span>
+          <span>Plot: {currentMovie?.plot}</span>
         </div>
       </div>
     </div>

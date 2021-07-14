@@ -41,9 +41,11 @@ const Main = () => {
   };
 
   const checkMovieList = () => {
+    console.log("needToCreateNewMovie: " + needToCreateNewMovie);
     fetch("http://127.0.0.1:8000/api/movie-list/")
       .then((response) => response.json())
       .then((data) => {
+        setNeedToCreateNewMovie(false);
         let foundMovie = false;
         Object.keys(data).forEach((key) => {
           if (data[key]?.title?.toLowerCase() === searchMovie?.toLowerCase()) {

@@ -5,7 +5,6 @@ from rest_framework.response import Response
 from .serializers import MovieSerializer, ReviewSerializer
 from .models import Movie
 from .movieData import getMovieData
-# Create your views here.
 
 @api_view(['GET'])
 def apiOverview(request):
@@ -34,12 +33,6 @@ def movieList(request):
     serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data)
 
-# @api_view(['GET'])
-# def movieDetail(request, pk):
-#     movies = Movie.objects.get(id=pk)
-#     serializer = MovieSerializer(movies, many=False)
-#     return Response(serializer.data)
-
 @api_view(['POST'])
 def movieUpdate(request, pk):
     movie = Movie.objects.get(id=pk)
@@ -57,7 +50,6 @@ def movieDelete(request, pk):
 
 @api_view(['POST'])
 def reviewCreate(request):
-    #movie = Movie.objects.get(id=pk)
     serializer = ReviewSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
