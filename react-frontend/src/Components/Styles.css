@@ -24,10 +24,20 @@ body {
   background-color: #36d9b6;
 }
 
-.movie-wrapper {
-  cursor: pointer;
+.movie-info-wrapper {
   border-bottom: 1px solid #e9e9e9;
   color: #686868;
+  margin: 5px;
+  padding: 10px;
+}
+
+.review-container {
+  display: block;
+}
+
+.review-wrapper {
+  display: flex;
+  border-bottom: 1px solid #e9e9e9;
   margin: 5px;
   padding: 20px;
 }
