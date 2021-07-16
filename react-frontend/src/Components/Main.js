@@ -36,7 +36,7 @@ const Main = () => {
       .then((data) => {
         let newReviewList = [];
         Object.keys(data).forEach((key) => {
-          newReviewList.push(data[key]?.text);
+          newReviewList.push(data[key]);
         });
         setReviewList(newReviewList);
       });
@@ -59,6 +59,8 @@ const Main = () => {
         });
         setNeedToCreateNewMovie(!foundMovie);
         setSearchMovie("");
+        setReview("");
+        setRating(5);
       });
   };
 
@@ -81,7 +83,27 @@ const Main = () => {
       });
   };
 
+  const updateMovieStats = () => {
+    fetch(`http://127.0.0.1:8000/api/movie-update/${displayedMovie.id}`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        title: displayedMovie["Title"],
+        year: displayedMovie["Year"],
+        runtime: displayedMovie["Runtime"],
+        director: displayedMovie["Director"],
+        poster: displayedMovie["Poster"],
+        plot: displayedMovie["Plot"],
+        total_reviews: displayedMovie.total_reviews + 1,
+        average_rating: 5,
+      }),
+    });
+  };
+
   const submitReview = () => {
+    updateMovieStats();
     fetch("http://127.0.0.1:8000/api/review-create/", {
       method: "POST",
       headers: {
@@ -89,12 +111,15 @@ const Main = () => {
       },
       body: JSON.stringify({
         text: review,
-        //rating: rating,
+        rating: rating,
+        //upvotes: 0,
+        // downvotes: 0,
         movie: displayedMovie.id,
       }),
     }).then(() => {
       updateReviews();
       setReview("");
+      setRating(5);
     });
   };
 
@@ -112,6 +137,7 @@ const Main = () => {
         review={review}
         setReview={setReview}
         submitReview={submitReview}
+        rating={rating}
         setRating={setRating}
       />
       <MovieReviews reviewList={reviewList} />

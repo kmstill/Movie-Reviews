@@ -9,11 +9,12 @@ from .movieData import getMovieData
 @api_view(['GET'])
 def apiOverview(request):
     api_urls = {
-        'List':'/movie-list/',
+        'List of Movies':'/movie-list/',
         'Detail View':'/movie-detail/<str:pk>/',
-        'Create':'/movie-create/',
-        'Update':'/movie-update/<str:pk>/',
-        'Delete':'/movie-update/<str:pk>',
+        'Create Movie':'/movie-create/',
+        'Update Movie':'/movie-update/<str:pk>/',
+        'Delete Movie':'/movie-update/<str:pk>',
+        'Create Review':'/review-create/'
     }
     return Response(api_urls)
 

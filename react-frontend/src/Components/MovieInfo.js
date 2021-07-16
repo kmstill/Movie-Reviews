@@ -27,11 +27,11 @@ const MovieInfo = ({ currentMovie }) => {
         </div>
         <div className="movie-info-wrapper">
           <span className="movieInfoType">Total Reviews:</span>
-          <span className="movieInfo"></span>
+          <span className="movieInfo"> {currentMovie?.total_reviews}</span>
         </div>
         <div className="movie-info-wrapper">
-          <span className="movieInfoType">Avereage Rating:</span>
-          <span className="movieInfo"> </span>
+          <span className="movieInfoType">Average Rating:</span>
+          <span className="movieInfo"> {currentMovie?.average_rating}</span>
         </div>
       </div>
     </div>

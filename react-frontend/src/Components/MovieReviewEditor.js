@@ -1,5 +1,11 @@
 import InputSpinner from "react-bootstrap-input-spinner"; //https://www.npmjs.com/package/react-bootstrap-input-spinner
-const MovieReviewEditor = ({ review, setReview, setRating, submitReview }) => {
+const MovieReviewEditor = ({
+  review,
+  setReview,
+  rating,
+  setRating,
+  submitReview,
+}) => {
   return (
     <>
       <form id="form">
@@ -21,6 +27,7 @@ const MovieReviewEditor = ({ review, setReview, setRating, submitReview }) => {
               min={0}
               step={1}
               onChange={(num) => setRating(num)}
+              value={rating}
             />
           </div>
           <div>

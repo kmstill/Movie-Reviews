@@ -1,8 +1,10 @@
 const MovieReviews = ({ reviewList }) => {
+  console.log("revList: " + reviewList);
   const reviews = reviewList.map((review, index) => (
     <div key={index} className="review-wrapper">
       <div style={{ flex: 7 }}>
-        <span>{review}</span>
+        <span>{review.text}</span>
+        <span>{review.rating}</span>
       </div>
       <div>
         <button className="btn btn-color">Upvote</button>

@@ -11,6 +11,8 @@ def getMovieData(title):
         'runtime': str(response['Runtime']),
         'director': response['Director'],
         'poster' : response['Poster'],
-        'plot' : response['Plot']
+        'plot' : response['Plot'],
+        'total_reviews': 0,
+        'average_rating': 5
     }
     return movieData

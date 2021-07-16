@@ -7,10 +7,13 @@ class Movie(models.Model):
     director = models.CharField(max_length=50)
     poster = models.CharField(max_length=1000)
     plot = models.TextField(max_length=10000)
+    total_reviews = models.IntegerField(default=0)
+    average_rating=models.FloatField(default=5)
 
 class Review(models.Model):
     text=models.TextField()
-    rating=models.IntegerField()
+    rating=models.IntegerField(default=5)
+    upvotes = models.IntegerField(default=0)
+    downvotes = models.IntegerField(default=0)
     movie=models.ForeignKey('Movie', related_name='reviews', on_delete=models.CASCADE)
-    def __str__(self):
-        return self.text
+    

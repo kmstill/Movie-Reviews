@@ -8,6 +8,7 @@ urlpatterns = [
      path('movie-update/<str:pk>', views.movieUpdate, name="movie-update"),
      path('movie-delete/<str:pk>', views.movieDelete, name="movie-delete"),
      path('review-create/', views.reviewCreate, name="review-create"),
+     # path('review-update/', views.reviewCreate, name="review-create"),
      path('review-list/<str:pk>', views.reviewList, name="review-list"),
     ]
 
