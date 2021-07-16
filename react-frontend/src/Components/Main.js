@@ -89,6 +89,7 @@ const Main = () => {
       },
       body: JSON.stringify({
         text: review,
+        //rating: rating,
         movie: displayedMovie.id,
       }),
     }).then(() => {
@@ -111,6 +112,7 @@ const Main = () => {
         review={review}
         setReview={setReview}
         submitReview={submitReview}
+        setRating={setRating}
       />
       <MovieReviews reviewList={reviewList} />
     </div>
