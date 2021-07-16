@@ -1,4 +1,10 @@
-const MovieSearchBar = ({ searchMovie, setSearchMovie, checkMovieList }) => {
+const MovieSearchBar = ({
+  searchMovie,
+  setSearchMovie,
+  checkMovieList,
+  initialScreen,
+  setInitialScreen,
+}) => {
   return (
     <>
       <form id="form">
@@ -20,6 +26,10 @@ const MovieSearchBar = ({ searchMovie, setSearchMovie, checkMovieList }) => {
               className="btn btn-color"
               onClick={(e) => {
                 e.preventDefault();
+                if (initialScreen) {
+                  setInitialScreen(false);
+                  return;
+                }
                 checkMovieList();
               }}
             />

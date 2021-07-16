@@ -5,10 +5,10 @@ const MovieReviews = ({ reviewList }) => {
         <span>{review}</span>
       </div>
       <div>
-        <button className="btn btn-color">Edit</button>
+        <button className="btn btn-color">Upvote</button>
       </div>
       <div>
-        <button className="btn btn-color">Delete</button>
+        <button className="btn btn-color">Downvote</button>
       </div>
     </div>
   ));

@@ -61,3 +61,9 @@ def reviewList(request, pk):
     reviews = movie.reviews.all()
     serializer=ReviewSerializer(reviews, many=True)
     return Response(serializer.data)
+
+# @api_view(['POST'])
+# def reviewUpdate(request, pk):
+#     movie = Movie.objects.get(id=pk)
+#     reviews = movie.reviews.all()
+

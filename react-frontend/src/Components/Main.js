@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./Styles.css";
+import Header from "./Header";
 import MovieSearchBar from "./MovieSearchBar";
 import MovieInfo from "./MovieInfo";
 import MovieReviewEditor from "./MovieReviewEditor";
 import MovieReviews from "./MovieReviews";
 
 const Main = () => {
-  const [displayedMovie, setDisplayedMovie] = useState({
-    id: 0,
-    title: "",
-    year: "",
-    runtime: "",
-    director: "",
-    poster: "",
-    plot: "",
-  });
+  const [initialScreen, setInitialScreen] = useState(true);
+  const [displayedMovie, setDisplayedMovie] = useState({});
   const [searchMovie, setSearchMovie] = useState("");
   const [needToCreateNewMovie, setNeedToCreateNewMovie] = useState(false);
   const [review, setReview] = useState("");
+  const [rating, setRating] = useState(5);
   const [reviewList, setReviewList] = useState([]);
 
   useEffect(() => {
@@ -28,7 +23,14 @@ const Main = () => {
     updateReviews();
   }, [displayedMovie]);
 
+  useEffect(() => {
+    checkMovieList();
+  }, [initialScreen]);
+
   const updateReviews = () => {
+    if (initialScreen) {
+      return;
+    }
     fetch(`http://127.0.0.1:8000/api/review-list/${displayedMovie.id}`)
       .then((response) => response.json())
       .then((data) => {
@@ -41,7 +43,9 @@ const Main = () => {
   };
 
   const checkMovieList = () => {
-    console.log("needToCreateNewMovie: " + needToCreateNewMovie);
+    if (initialScreen) {
+      return;
+    }
     fetch("http://127.0.0.1:8000/api/movie-list/")
       .then((response) => response.json())
       .then((data) => {
@@ -59,7 +63,7 @@ const Main = () => {
   };
 
   const createNewMovie = () => {
-    if (!needToCreateNewMovie) {
+    if (initialScreen) {
       return;
     }
     fetch("http://127.0.0.1:8000/api/movie-create/", {
@@ -99,6 +103,8 @@ const Main = () => {
         searchMovie={searchMovie}
         setSearchMovie={setSearchMovie}
         checkMovieList={checkMovieList}
+        initialScreen={initialScreen}
+        setInitialScreen={setInitialScreen}
       />
       <MovieInfo currentMovie={displayedMovie} />
       <MovieReviewEditor

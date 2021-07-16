@@ -1,4 +1,11 @@
-const MovieReviewEditor = ({ review, setReview, submitReview }) => {
+import InputSpinner from "react-bootstrap-input-spinner"; //https://www.npmjs.com/package/react-bootstrap-input-spinner
+const MovieReviewEditor = ({
+  review,
+  setReview,
+  rating,
+  setRating,
+  submitReview,
+}) => {
   return (
     <>
       <form id="form">
@@ -6,14 +13,24 @@ const MovieReviewEditor = ({ review, setReview, submitReview }) => {
           <div style={{ flex: 8 }}>
             <input
               className="form-control"
-              id="review editor"
               type="text"
               placeholder="Write a review for this film..."
               onChange={(e) => setReview(e.target.value)}
               value={review}
             ></input>
           </div>
-          <div style={{ flex: 1 }}>
+          <div className="input-spinner" style={{ flex: 2 }}>
+            <InputSpinner
+              type={"real"}
+              precision={1}
+              max={10}
+              min={0}
+              step={1}
+              onChange={(e) => setRating(e.target.value)}
+              value={rating}
+            />
+          </div>
+          <div>
             <input
               type="submit"
               value="Submit"

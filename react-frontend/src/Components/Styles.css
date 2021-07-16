@@ -47,3 +47,13 @@ body {
   display: table-cell;
   vertical-align: top;
 }
+
+.movieInfoType {
+  font-weight: bold;
+}
+.movieInfo {
+  font-size: 14px;
+}
+.input-spinner {
+  padding-left: 10px;
+}
