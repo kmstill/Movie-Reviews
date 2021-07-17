@@ -53,27 +53,19 @@ const Main = () => {
   };
 
   const updateMovieStats = () => {
-    console.log("updatestats");
     fetch(`http://127.0.0.1:8000/api/movie-update/${displayedMovie.id}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        title: displayedMovie["Title"],
-        year: displayedMovie["Year"],
-        runtime: displayedMovie["Runtime"],
-        director: displayedMovie["Director"],
-        poster: displayedMovie["Poster"],
-        plot: displayedMovie["Plot"],
         total_reviews: displayedMovie.total_reviews + 1,
-        average_rating: 5,
       }),
-    }).then((data) => {
-      console.log("moviestatsresp");
-      console.log();
-      console.log(data);
-    });
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setDisplayedMovie(data);
+      });
   };
 
   const submitReview = () => {

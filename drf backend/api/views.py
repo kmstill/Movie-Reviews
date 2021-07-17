@@ -14,6 +14,7 @@ def apiOverview(request):
         'Create Movie':'/movie-create/',
         'Update Movie':'/movie-update/<str:pk>/',
         'Delete Movie':'/movie-update/<str:pk>',
+        'Delete All Movies': '/delete-all-movies/',
         'Create Review':'/review-create/'
     }
     return Response(api_urls)
@@ -37,7 +38,8 @@ def movieList(request):
 @api_view(['POST'])
 def movieUpdate(request, pk):
     movie = Movie.objects.get(id=pk)
-    serializer = MovieSerializer(instance=movie, data=request.data)
+    print("data: "+str(request.data))
+    serializer = MovieSerializer(instance=movie, data=request.data, partial=True)
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
