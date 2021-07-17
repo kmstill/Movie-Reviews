@@ -2,7 +2,7 @@ const MovieInfo = ({ currentMovie }) => {
   return (
     <div className="component-container">
       <div className="together">
-        <img src={currentMovie?.poster}></img>
+        <img src={currentMovie?.poster} alt=""></img>
       </div>
       <div className="together">
         <div className="movie-info-wrapper">

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./Styles.css";
-import Header from "./Header";
+//import Header from "./Header";
 import MovieSearchBar from "./MovieSearchBar";
 import MovieInfo from "./MovieInfo";
 import MovieReviewEditor from "./MovieReviewEditor";
@@ -14,18 +14,6 @@ const Main = () => {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(5);
   const [reviewList, setReviewList] = useState([]);
-
-  useEffect(() => {
-    createNewMovie();
-  }, [needToCreateNewMovie]);
-
-  useEffect(() => {
-    updateReviews();
-  }, [displayedMovie]);
-
-  useEffect(() => {
-    checkMovieList();
-  }, [initialScreen]);
 
   const updateReviews = () => {
     if (initialScreen) {
@@ -64,6 +52,7 @@ const Main = () => {
       });
   };
 
+  /*
   const createNewMovie = () => {
     if (initialScreen) {
       return;
@@ -82,6 +71,7 @@ const Main = () => {
         setDisplayedMovie(data);
       });
   };
+  */
 
   const updateMovieStats = () => {
     fetch(`http://127.0.0.1:8000/api/movie-update/${displayedMovie.id}`, {
@@ -99,11 +89,12 @@ const Main = () => {
         total_reviews: displayedMovie.total_reviews + 1,
         average_rating: 5,
       }),
+    }).then((data) => {
+      console.log(data);
     });
   };
 
   const submitReview = () => {
-    updateMovieStats();
     fetch("http://127.0.0.1:8000/api/review-create/", {
       method: "POST",
       headers: {
@@ -112,15 +103,47 @@ const Main = () => {
       body: JSON.stringify({
         text: review,
         rating: rating,
-        //upvotes: 0,
-        // downvotes: 0,
+        upvotes: 0,
+        downvotes: 0,
         movie: displayedMovie.id,
       }),
     }).then(() => {
       updateReviews();
+      updateMovieStats();
       setReview("");
       setRating(5);
     });
+  };
+
+  useEffect(() => {
+    createNewMovie();
+  }, [needToCreateNewMovie]);
+
+  useEffect(() => {
+    updateReviews();
+  }, [displayedMovie]);
+
+  useEffect(() => {
+    checkMovieList();
+  }, [initialScreen]);
+
+  const createNewMovie = () => {
+    if (initialScreen) {
+      return;
+    }
+    fetch("http://127.0.0.1:8000/api/movie-create/", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        movie: searchMovie,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setDisplayedMovie(data);
+      });
   };
 
   return (

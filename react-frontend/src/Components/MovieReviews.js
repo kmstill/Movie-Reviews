@@ -1,5 +1,4 @@
 const MovieReviews = ({ reviewList }) => {
-  console.log("revList: " + reviewList);
   const reviews = reviewList.map((review, index) => (
     <div key={index} className="review-wrapper">
       <div style={{ flex: 7 }}>

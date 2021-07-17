@@ -7,6 +7,7 @@ urlpatterns = [
      path('movie-list/', views.movieList, name="movie-list"),
      path('movie-update/<str:pk>', views.movieUpdate, name="movie-update"),
      path('movie-delete/<str:pk>', views.movieDelete, name="movie-delete"),
+     path('delete-all-movies/', views.deleteAllMovies, name="delete-all-movies"),
      path('review-create/', views.reviewCreate, name="review-create"),
      # path('review-update/', views.reviewCreate, name="review-create"),
      path('review-list/<str:pk>', views.reviewList, name="review-list"),

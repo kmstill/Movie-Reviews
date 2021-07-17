@@ -47,7 +47,12 @@ def movieUpdate(request, pk):
 def movieDelete(request, pk):
     movie = Movie.objects.get(id=pk)
     movie.delete()
-    return Response("Movie Deleted")
+    return Response("Movie deleted")
+
+@api_view(['DELETE'])
+def deleteAllMovies(request):
+    Movie.objects.all().delete()
+    return Response("All movies deleted")
 
 @api_view(['POST'])
 def reviewCreate(request):
