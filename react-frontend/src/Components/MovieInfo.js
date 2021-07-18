@@ -31,7 +31,12 @@ const MovieInfo = ({ currentMovie }) => {
         </div>
         <div className="movie-info-wrapper">
           <span className="movieInfoType">Average Rating:</span>
-          <span className="movieInfo"> {currentMovie?.average_rating}</span>
+          <span className="movieInfo">
+            {" "}
+            {(
+              currentMovie?.total_rating_points / currentMovie.total_reviews
+            ).toFixed(2)}
+          </span>
         </div>
       </div>
     </div>

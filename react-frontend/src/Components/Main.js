@@ -53,13 +53,23 @@ const Main = () => {
   };
 
   const updateMovieStats = () => {
+    let new_total_reviews = reviewList.length;
+    if (!new_total_reviews) {
+      return;
+    }
+    //let new_total_rating_points = rating + displayedMovie.total_rating_points;
+    let new_total_rating_points = 0;
+    reviewList.forEach((review) => {
+      new_total_rating_points += review.rating;
+    });
     fetch(`http://127.0.0.1:8000/api/movie-update/${displayedMovie.id}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        total_reviews: displayedMovie.total_reviews + 1,
+        total_reviews: new_total_reviews,
+        total_rating_points: new_total_rating_points,
       }),
     })
       .then((response) => response.json())
@@ -83,7 +93,6 @@ const Main = () => {
       }),
     }).then(() => {
       updateReviews();
-      updateMovieStats();
       setReview("");
       setRating(5);
     });
@@ -100,6 +109,10 @@ const Main = () => {
   useEffect(() => {
     checkMovieList();
   }, [initialScreen]);
+
+  useEffect(() => {
+    updateMovieStats();
+  }, [reviewList]);
 
   const createNewMovie = () => {
     if (initialScreen) {

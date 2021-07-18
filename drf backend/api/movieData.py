@@ -5,6 +5,7 @@ def getMovieData(title):
     response = requests.get(f"http://www.omdbapi.com/?t={title}&apikey={API_KEY}").json()
     if not response:
         return {}
+    print("moviedataresponse: "+str(response))
     movieData = {
         'title': response['Title'],
         'year': response['Year'],
@@ -13,6 +14,6 @@ def getMovieData(title):
         'poster' : response['Poster'],
         'plot' : response['Plot'],
         'total_reviews': 0,
-        'average_rating': 5
+        'total_rating_points': 0
     }
     return movieData
