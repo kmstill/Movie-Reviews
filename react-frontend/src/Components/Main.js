@@ -86,8 +86,8 @@ const Main = () => {
       body: JSON.stringify({
         text: review,
         rating: rating,
-        upvotes: 0,
-        downvotes: 0,
+        likes: 0,
+        dislikes: 0,
         movie: displayedMovie.id,
       }),
     }).then(() => {

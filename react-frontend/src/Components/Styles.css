@@ -48,10 +48,10 @@ body {
   vertical-align: top;
 }
 
-.movieInfoType {
+.info-type {
   font-weight: bold;
 }
-.movieInfo {
+.info {
   font-size: 14px;
 }
 .input-spinner {

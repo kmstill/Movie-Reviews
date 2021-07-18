@@ -6,32 +6,32 @@ const MovieInfo = ({ currentMovie }) => {
       </div>
       <div className="together">
         <div className="movie-info-wrapper">
-          <span className="movieInfoType">Title:</span>
-          <span className="movieInfo"> {currentMovie?.title}</span>
+          <span className="info-type">Title:</span>
+          <span className="info"> {currentMovie?.title}</span>
         </div>
         <div className="movie-info-wrapper">
-          <span className="movieInfoType">Released:</span>
-          <span className="movieInfo"> {currentMovie?.year}</span>
+          <span className="info-type">Released:</span>
+          <span className="info"> {currentMovie?.year}</span>
         </div>
         <div className="movie-info-wrapper">
-          <span className="movieInfoType">Directed by:</span>
-          <span className="movieInfo"> {currentMovie?.director}</span>
+          <span className="info-type">Directed by:</span>
+          <span className="info"> {currentMovie?.director}</span>
         </div>
         <div className="movie-info-wrapper">
-          <span className="movieInfoType">Runtime:</span>
-          <span className="movieInfo"> {currentMovie?.runtime}</span>
+          <span className="info-type">Runtime:</span>
+          <span className="info"> {currentMovie?.runtime}</span>
         </div>
         <div className="movie-info-wrapper">
-          <span className="movieInfoType">Plot:</span>
-          <span className="movieInfo"> {currentMovie?.plot}</span>
+          <span className="info-type">Plot:</span>
+          <span className="info"> {currentMovie?.plot}</span>
         </div>
         <div className="movie-info-wrapper">
-          <span className="movieInfoType">Total Reviews:</span>
-          <span className="movieInfo"> {currentMovie?.total_reviews}</span>
+          <span className="info-type">Total Reviews:</span>
+          <span className="info"> {currentMovie?.total_reviews}</span>
         </div>
         <div className="movie-info-wrapper">
-          <span className="movieInfoType">Average Rating:</span>
-          <span className="movieInfo">
+          <span className="info-type">Average Rating:</span>
+          <span className="info">
             {" "}
             {(
               currentMovie?.total_rating_points / currentMovie.total_reviews
