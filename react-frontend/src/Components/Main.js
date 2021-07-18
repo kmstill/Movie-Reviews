@@ -94,7 +94,6 @@ const Main = () => {
     }).then(() => {
       updateReviews();
       setReview("");
-      setRating(5);
     });
   };
 
