@@ -14,6 +14,8 @@ const Main = () => {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(5);
   const [reviewList, setReviewList] = useState([]);
+  const [totalReviews, setTotalReviews] = useState(0);
+  const [averageRating, setAverageRating] = useState(0);
 
   const updateReviews = () => {
     if (initialScreen) {
@@ -23,9 +25,13 @@ const Main = () => {
       .then((response) => response.json())
       .then((data) => {
         let newReviewList = [];
+        let totalRatingPoints = 0;
         Object.keys(data).forEach((key) => {
+          totalRatingPoints += data[key].rating;
           newReviewList.push(data[key]);
         });
+        setTotalReviews(newReviewList.length);
+        setAverageRating((totalRatingPoints / newReviewList.length).toFixed(2));
         setReviewList(newReviewList);
       });
   };
@@ -52,31 +58,6 @@ const Main = () => {
       });
   };
 
-  const updateMovieStats = () => {
-    let new_total_reviews = reviewList.length;
-    if (!new_total_reviews) {
-      return;
-    }
-    let new_total_rating_points = 0;
-    reviewList.forEach((review) => {
-      new_total_rating_points += review.rating;
-    });
-    fetch(`http://127.0.0.1:8000/api/movie-update/${displayedMovie.id}`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        total_reviews: new_total_reviews,
-        total_rating_points: new_total_rating_points,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setDisplayedMovie(data);
-      });
-  };
-
   const submitReview = () => {
     fetch("http://127.0.0.1:8000/api/review-create/", {
       method: "POST",
@@ -96,6 +77,10 @@ const Main = () => {
     });
   };
 
+  const addLikeOrDislike = () => {
+    fetch();
+  };
+
   useEffect(() => {
     createNewMovie();
   }, [needToCreateNewMovie]);
@@ -107,10 +92,6 @@ const Main = () => {
   useEffect(() => {
     checkMovieList();
   }, [initialScreen]);
-
-  useEffect(() => {
-    updateMovieStats();
-  }, [reviewList]);
 
   const createNewMovie = () => {
     if (initialScreen) {
@@ -143,15 +124,23 @@ const Main = () => {
         initialScreen={initialScreen}
         setInitialScreen={setInitialScreen}
       />
-      <MovieInfo currentMovie={displayedMovie} />
-      <MovieReviewEditor
-        review={review}
-        setReview={setReview}
-        submitReview={submitReview}
-        rating={rating}
-        setRating={setRating}
-      />
-      <MovieReviews reviewList={reviewList} />
+      {
+        <div>
+          <MovieInfo
+            displayedMovie={displayedMovie}
+            totalReviews={totalReviews}
+            averageRating={averageRating}
+          />
+          <MovieReviewEditor
+            review={review}
+            setReview={setReview}
+            submitReview={submitReview}
+            rating={rating}
+            setRating={setRating}
+          />
+          <MovieReviews reviewList={reviewList} />
+        </div>
+      }
     </div>
   );
 };

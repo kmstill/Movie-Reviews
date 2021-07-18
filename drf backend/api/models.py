@@ -7,8 +7,6 @@ class Movie(models.Model):
     director = models.CharField(max_length=50)
     poster = models.CharField(max_length=1000)
     plot = models.TextField(max_length=10000)
-    total_reviews = models.IntegerField(default=0)
-    total_rating_points = models.IntegerField(default=5)
 
 class Review(models.Model):
     text = models.TextField()

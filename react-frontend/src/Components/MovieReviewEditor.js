@@ -26,7 +26,9 @@ const MovieReviewEditor = ({
               max={10}
               min={0}
               step={1}
-              onChange={(num) => setRating(num)}
+              onChange={(num) => {
+                setRating(num);
+              }}
               value={rating}
             />
           </div>

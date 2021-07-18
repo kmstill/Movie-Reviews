@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import MovieSerializer, ReviewSerializer
 from .models import Movie
+from .models import Review
 from .movieInfo import getMovieInfo
 
 @api_view(['GET'])
@@ -38,7 +39,6 @@ def movieList(request):
 @api_view(['POST'])
 def movieUpdate(request, pk):
     movie = Movie.objects.get(id=pk)
-    print("data: "+str(request.data))
     serializer = MovieSerializer(instance=movie, data=request.data, partial=True)
     if serializer.is_valid():
         serializer.save()
@@ -70,8 +70,11 @@ def reviewList(request, pk):
     serializer=ReviewSerializer(reviews, many=True)
     return Response(serializer.data)
 
-# @api_view(['POST'])
-# def reviewUpdate(request, pk):
-#     movie = Movie.objects.get(id=pk)
-#     reviews = movie.reviews.all()
+@api_view(['POST'])
+def reviewUpdate(request, pk):
+    review = Review.objects.get(id=pk)
+    serializer = ReviewSerializer(instance=review, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
 
