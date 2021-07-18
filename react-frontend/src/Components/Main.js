@@ -57,7 +57,6 @@ const Main = () => {
     if (!new_total_reviews) {
       return;
     }
-    //let new_total_rating_points = rating + displayedMovie.total_rating_points;
     let new_total_rating_points = 0;
     reviewList.forEach((review) => {
       new_total_rating_points += review.rating;

@@ -1,12 +1,12 @@
 import requests
 from  api.config import API_KEY 
 
-def getMovieData(title):
+def getMovieInfo(title):
     response = requests.get(f"http://www.omdbapi.com/?t={title}&apikey={API_KEY}").json()
     if not response:
         return {}
     print("moviedataresponse: "+str(response))
-    movieData = {
+    movieInfo = {
         'title': response['Title'],
         'year': response['Year'],
         'runtime': str(response['Runtime']),
@@ -16,4 +16,4 @@ def getMovieData(title):
         'total_reviews': 0,
         'total_rating_points': 0
     }
-    return movieData
+    return movieInfo

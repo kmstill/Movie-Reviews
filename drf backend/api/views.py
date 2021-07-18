@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import MovieSerializer, ReviewSerializer
 from .models import Movie
-from .movieData import getMovieData
+from .movieInfo import getMovieInfo
 
 @api_view(['GET'])
 def apiOverview(request):
@@ -22,8 +22,8 @@ def apiOverview(request):
 @api_view(['POST'])
 def movieCreate(request):
     movie = request.data['movie']
-    movieData = getMovieData(movie)
-    serializer = MovieSerializer(data=movieData)
+    movieInfo = getMovieInfo(movie)
+    serializer = MovieSerializer(data=movieInfo)
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
