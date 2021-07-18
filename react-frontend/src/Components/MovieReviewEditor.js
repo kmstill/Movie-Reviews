@@ -14,7 +14,7 @@ const MovieReviewEditor = ({
             <input
               className="form-control"
               type="text"
-              placeholder="Write a review for this film..."
+              placeholder="Write a review for this movie..."
               onChange={(e) => setReview(e.target.value)}
               value={review}
             ></input>

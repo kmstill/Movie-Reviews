@@ -114,6 +114,17 @@ const Main = () => {
         setDisplayedMovie(data);
       });
   };
+  if (initialScreen) {
+    return (
+      <MovieSearchBar
+        searchMovie={searchMovie}
+        setSearchMovie={setSearchMovie}
+        checkMovieList={checkMovieList}
+        initialScreen={initialScreen}
+        setInitialScreen={setInitialScreen}
+      />
+    );
+  }
 
   return (
     <div>

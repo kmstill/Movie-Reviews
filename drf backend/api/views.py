@@ -36,15 +36,6 @@ def movieList(request):
     serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data)
 
-@api_view(['POST'])
-def movieUpdate(request, pk):
-    movie = Movie.objects.get(id=pk)
-    serializer = MovieSerializer(instance=movie, data=request.data, partial=True)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
-
-
 @api_view(['DELETE'])
 def movieDelete(request, pk):
     movie = Movie.objects.get(id=pk)

@@ -5,7 +5,6 @@ urlpatterns = [
      path('', views.apiOverview, name="api-overview"),
      path('movie-create/', views.movieCreate, name="movie-create"),
      path('movie-list/', views.movieList, name="movie-list"),
-     path('movie-update/<str:pk>', views.movieUpdate, name="movie-update"),
      path('movie-delete/<str:pk>', views.movieDelete, name="movie-delete"),
      path('delete-all-movies/', views.deleteAllMovies, name="delete-all-movies"),
      path('review-create/', views.reviewCreate, name="review-create"),
