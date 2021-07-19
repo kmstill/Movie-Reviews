@@ -54,7 +54,6 @@ const Main = () => {
         setNeedToCreateNewMovie(!foundMovie);
         setSearchMovie("");
         setReview("");
-        setRating(5);
       });
   };
 
@@ -77,8 +76,49 @@ const Main = () => {
     });
   };
 
-  const addLikeOrDislike = () => {
-    fetch();
+  const addLikeOrDislike = (reviewId, isLike, newAmount) => {
+    console.log("addlikeordislike");
+    let data;
+    if (isLike) {
+      data = {
+        likes: newAmount,
+      };
+    } else {
+      data = {
+        dislikes: newAmount,
+      };
+    }
+    fetch(`http://127.0.0.1:8000/api/review-update/${reviewId}`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then(() => {
+      updateReviews();
+    });
+  };
+
+  const createNewMovie = () => {
+    if (initialScreen || !needToCreateNewMovie) {
+      return;
+    }
+    fetch("http://127.0.0.1:8000/api/movie-create/", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        movie: searchMovie,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (JSON.stringify(data) === "{}") {
+          return;
+        }
+        setDisplayedMovie(data);
+      });
   };
 
   useEffect(() => {
@@ -93,27 +133,6 @@ const Main = () => {
     checkMovieList();
   }, [initialScreen]);
 
-  const createNewMovie = () => {
-    if (initialScreen) {
-      return;
-    }
-    if (!needToCreateNewMovie) {
-      return;
-    }
-    fetch("http://127.0.0.1:8000/api/movie-create/", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        movie: searchMovie,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setDisplayedMovie(data);
-      });
-  };
   if (initialScreen) {
     return (
       <MovieSearchBar
@@ -149,7 +168,10 @@ const Main = () => {
             rating={rating}
             setRating={setRating}
           />
-          <MovieReviews reviewList={reviewList} />
+          <MovieReviews
+            reviewList={reviewList}
+            addLikeOrDislike={addLikeOrDislike}
+          />
         </div>
       }
     </div>
