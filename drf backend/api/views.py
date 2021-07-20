@@ -10,13 +10,13 @@ from .movieInfo import getMovieInfo
 @api_view(['GET'])
 def apiOverview(request):
     api_urls = {
-        'List of Movies':'/movie-list/',
-        'Detail View':'/movie-detail/<str:pk>/',
         'Create Movie':'/movie-create/',
-        'Update Movie':'/movie-update/<str:pk>/',
-        'Delete Movie':'/movie-update/<str:pk>',
-        'Delete All Movies': '/delete-all-movies/',
-        'Create Review':'/review-create/'
+        'List of Movies':'/movie-list/',
+        'Delete Movie': '/movie-delete/<str:pk>',
+        'Delete All Movies':'/delete-all-movies/',
+        'Create Review':'/review-create/',
+        'List of Reviews':'/review-list/<str:pk>',
+        'Update Review':'/review-update/<str:pk>/'
     }
     return Response(api_urls)
 

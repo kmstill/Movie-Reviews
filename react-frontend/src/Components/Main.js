@@ -35,6 +35,8 @@ const Main = () => {
           setAverageRating(
             (totalRatingPoints / newReviewList.length).toFixed(2)
           );
+        } else {
+          setAverageRating("N/A");
         }
         setReviewList(newReviewList);
       });

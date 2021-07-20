@@ -3,7 +3,6 @@ from  api.config import API_KEY
 
 def getMovieInfo(title):
     response = requests.get(f"http://www.omdbapi.com/?t={title}&apikey={API_KEY}").json()
-    print(response)
     if 'Error' in response:
         return {}
     movieInfo = {
