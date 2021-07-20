@@ -15,7 +15,7 @@ const Main = () => {
   const [rating, setRating] = useState(5);
   const [reviewList, setReviewList] = useState([]);
   const [totalReviews, setTotalReviews] = useState(0);
-  const [averageRating, setAverageRating] = useState(0);
+  const [averageRating, setAverageRating] = useState("N/A");
 
   const updateReviews = () => {
     if (initialScreen) {
@@ -31,7 +31,11 @@ const Main = () => {
           newReviewList.push(data[key]);
         });
         setTotalReviews(newReviewList.length);
-        setAverageRating((totalRatingPoints / newReviewList.length).toFixed(2));
+        if (newReviewList.length) {
+          setAverageRating(
+            (totalRatingPoints / newReviewList.length).toFixed(2)
+          );
+        }
         setReviewList(newReviewList);
       });
   };
