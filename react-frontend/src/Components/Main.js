@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import "./Styles.css";
 import MovieSearchBar from "./MovieSearchBar";
 import MovieInfo from "./MovieInfo";
@@ -50,8 +50,10 @@ const Main = () => {
       .then((data) => {
         setNeedToCreateNewMovie(false);
         let foundMovie = false;
+        let searchMovieLowerCase = searchMovie?.toLowerCase();
         Object.keys(data).forEach((key) => {
-          if (data[key]?.title?.toLowerCase() === searchMovie?.toLowerCase()) {
+          let movieTitleLowercase = data[key]?.title?.toLowerCase();
+          if (movieTitleLowercase === searchMovieLowerCase) {
             setDisplayedMovie(data[key]);
             foundMovie = true;
           }
@@ -150,7 +152,7 @@ const Main = () => {
     );
   }
 
-  if (reviewList.length == 0) {
+  if (reviewList.length === 0) {
     return (
       <div>
         <MovieSearchBar
