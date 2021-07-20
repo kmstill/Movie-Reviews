@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./Styles.css";
-//import Header from "./Header";
 import MovieSearchBar from "./MovieSearchBar";
 import MovieInfo from "./MovieInfo";
 import MovieReviewEditor from "./MovieReviewEditor";
@@ -151,6 +150,32 @@ const Main = () => {
     );
   }
 
+  if (reviewList.length == 0) {
+    return (
+      <div>
+        <MovieSearchBar
+          searchMovie={searchMovie}
+          setSearchMovie={setSearchMovie}
+          checkMovieList={checkMovieList}
+          initialScreen={initialScreen}
+          setInitialScreen={setInitialScreen}
+        />
+        <MovieInfo
+          displayedMovie={displayedMovie}
+          totalReviews={totalReviews}
+          averageRating={averageRating}
+        />
+        <MovieReviewEditor
+          review={review}
+          setReview={setReview}
+          submitReview={submitReview}
+          rating={rating}
+          setRating={setRating}
+        />
+      </div>
+    );
+  }
+
   return (
     <div>
       <MovieSearchBar
@@ -160,26 +185,22 @@ const Main = () => {
         initialScreen={initialScreen}
         setInitialScreen={setInitialScreen}
       />
-      {
-        <div>
-          <MovieInfo
-            displayedMovie={displayedMovie}
-            totalReviews={totalReviews}
-            averageRating={averageRating}
-          />
-          <MovieReviewEditor
-            review={review}
-            setReview={setReview}
-            submitReview={submitReview}
-            rating={rating}
-            setRating={setRating}
-          />
-          <MovieReviews
-            reviewList={reviewList}
-            addLikeOrDislike={addLikeOrDislike}
-          />
-        </div>
-      }
+      <MovieInfo
+        displayedMovie={displayedMovie}
+        totalReviews={totalReviews}
+        averageRating={averageRating}
+      />
+      <MovieReviewEditor
+        review={review}
+        setReview={setReview}
+        submitReview={submitReview}
+        rating={rating}
+        setRating={setRating}
+      />
+      <MovieReviews
+        reviewList={reviewList}
+        addLikeOrDislike={addLikeOrDislike}
+      />
     </div>
   );
 };
